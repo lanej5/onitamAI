@@ -1,21 +1,22 @@
 # Onitama
 
-I was given the game Onitama for christmas and thought implementing some AI to play it would be fun.  
+Onitama is a chess variant. One of its interesting features is that legal moves are given on cards. Each player can only make moves based on the cards in their hand and cards are exchanged after each turn. This adds an extra challenge when looking several turns ahead because the moves that will be available will depend on which cards are played. [More details](https://www.chessvariants.com/rules/onitama).
 
-Everything in this repo is a totally recreational work in progress. 
+I was given Onitama for christmas and thought that implementing some AI to play it would be fun.  I chose C++ because I want to focus on making Monte Carlo Tree Search (MCTS) agents [1] that are fast and memory efficient.
 
-I chose C++ because I want to focus on making Monte Carlo Tree Search (MCTS) agents [1] that are fast and memory efficient.
+My original idea was to implement an Alpha Zero AI for Onitama. However, this is probably overkill because Onitama's branching factor is relatively small. In random simulations Onitama's branching factor was consistently <20 from early to late game. In contrast, the branching factor of Go is about 250 and the branching factor of chess is about 35 [[ref](https://en.wikipedia.org/wiki/Branching_factor)].
 
-My original idea was to make an Alpha Zero AI for Onitama, but it seems likely that this is total overkill because its branching factor is relatively small. In random simulations Onitama's branching factor was consistently <20 from early to late game. In contrast, the branching factor of Go is about 250 and the branching factor of chess is about 35 [ref](https://en.wikipedia.org/wiki/Branching_factor).
+An agent using the upper confidence for trees (UCT) algorithm [2] is implemented in UCTAgent.h. 
 
-At the moment, the only AI that is implemented is an upper confidence for trees (UCT) algorithm [2]. This is implemented in UCTAgent.h. 
+A gym that can be used to pit different AI agents is implemented in Gym.h. Currently the UCT agent beats an agent making random moves every time (as one would hope).
 
-The code also implements a gym (Gym.h) that can be used to pit different AI agents. Currently the UCT agent beats an agent making random moves every time (as one would hope).
+Everything in this repo is a totally recreational work in progress. As such, I don't plan to maintain it. That being said, if you have some helpful or interesting thoughts, please feel free to open an issue and share your thoughts.
 
 # To Do
 
 For whenever I get around to it, in no particular order:
 
+- Add some code to gather data for some tasty analysis
 - Implement a polymorphic Node class that can be used by different AI Agents
 - Continue speeding up the code (especially `get_valid_actions` in `Actions.h` which is called quite a bit)
 - Implement full tree search for comparison sake
