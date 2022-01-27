@@ -51,7 +51,9 @@ void UCTAgent::new_game(const State& s){
 
 void UCTAgent::update_root(const Action& a){
   // use a to update root
-  
+  if(a.card == NONE){
+    return;
+  }
   // find edge
   int k = 0;
   while((k < root->actions.size()) && !(root->actions[k] == a)){
