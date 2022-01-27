@@ -25,6 +25,11 @@ For whenever I get around to it, in no particular order:
 - Implement an Alpha Zero variant (this might be totally unnecessary for Onitama which has a fairly low branching factor, but it would be fun to do and realistic to train with limited resources)
 - Dockerize everything
 - Clean up the C++
+- Parallelize the MCTS algorithm
+
+# Things I tried that didn't do much
+
+- The function `valid_actions` is a pain point (it's called many times in rollouts/simulations). I tried hard coding valid actions with a `const std::map` to see if it would speed up this function. See `/actions` for the code. In tests this did not speed up the function. 
 
 # References
 
