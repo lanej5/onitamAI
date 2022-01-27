@@ -17,10 +17,8 @@
 class UCTNode {//}: public std::enable_shared_from_this<UCTNode> {
 public:
   UCTNode(State);
-  
   int expand(std::default_random_engine& rng);
   int best_child(std::default_random_engine& rng, const float&);
-  
   bool fully_expanded();
   
   State state;

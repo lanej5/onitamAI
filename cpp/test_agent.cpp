@@ -12,12 +12,11 @@ using namespace std;
 
 int main(){
   
-  int seed = 1;
+  int seed = 2;
   std::default_random_engine rng(seed);
   
   RandomAgent p1(rng);
   UCTAgent p2(rng);
-  
   Gym g(p1, p2, rng);
   
   g.pit(5);

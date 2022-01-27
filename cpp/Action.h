@@ -71,6 +71,7 @@ inline std::vector<Action> get_valid_actions(const State& s){
 }
 
 inline bool is_valid(const State& s, const Action& a){
+  // lazy implementation
   for(Action a_i : get_valid_actions(s)){
     if(a_i == a){
       return true;
