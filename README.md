@@ -16,6 +16,7 @@ Everything in this repo is a totally recreational work in progress. As such, I d
 
 For whenever I get around to it, in no particular order:
 
+- Implement minimax
 - Add some code to gather data for some tasty analysis
 - Implement a polymorphic Node class that can be used by different AI Agents
 - Continue speeding up the code (especially `get_valid_actions` in `Actions.h` which is called quite a bit)
