@@ -3,8 +3,7 @@
 //
 //  Created by Jeremy Lane
 //
-//  Todo: swap who goes first each turn
-//        record data
+//  Todo: record data
 //        impose resource limits
 
 #ifndef Gym_h
@@ -52,27 +51,10 @@ void Gym::play_game(){
 }
 
 void Gym::pit(int num_games){
-  // currently player 0 goes first every time. Add shuffle later.
-  
-//  std::array<int, 3> outcomes(3, 0);
   
   for(int i = 0; i < num_games; i++){
     play_game();
   }
-    
-//    // currently bad logic
-//    if(r > 0){
-//      outcomes[0]++;
-//    } else if(r < 0){
-//      outcomes[1]++;
-//    } else {
-//      outcomes[2]++;
-//    }
-//  }
-//
-//  std::cout << "Player 0 won " << outcomes[0] << " times." << std::endl;
-//  std::cout << "Player 1 won " << outcomes[1] << " times." << std::endl;
-//  std::cout << "There were " << outcomes[2] << " draws." << std::endl;
 }
 
 
