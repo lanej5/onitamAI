@@ -18,7 +18,6 @@ For whenever I get around to it, in no particular order:
 - Add some code to gather data for some tasty analysis
 - Implement a polymorphic Node class that can be used by different AI Agents
 - Continue speeding up the code (especially `get_valid_actions` in `Actions.h` which is called quite a bit)
-- Implement full tree search for comparison sake
 - Implement a few other MCTS algorithms and use the gym to compare them and tune their hyperparameters
 - Implement time/memory resource constraints
 - Implement an Alpha Zero variant (this might be totally unnecessary for Onitama which has a fairly low branching factor, but it would be fun to do and realistic to train with limited resources)
