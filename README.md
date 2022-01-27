@@ -6,9 +6,7 @@ I was given Onitama for christmas and thought that implementing some AI to play 
 
 My original idea was to implement an Alpha Zero AI for Onitama. However, this is probably overkill because Onitama's branching factor is relatively small. In random simulations Onitama's branching factor was consistently <20 from early to late game. In contrast, the branching factor of Go is about 250 and the branching factor of chess is about 35 [[ref](https://en.wikipedia.org/wiki/Branching_factor)].
 
-An agent using the upper confidence for trees (UCT) algorithm [2] is implemented in UCTAgent.h. 
-
-A gym that can be used to pit different AI agents is implemented in Gym.h. Currently the UCT agent beats an agent making random moves every time (as one would hope).
+An agent using the upper confidence for trees (UCT) algorithm [2] is implemented in UCTAgent.h. A gym that can be used to pit different AI agents is implemented in Gym.h.
 
 Everything in this repo is a totally recreational work in progress. As such, I don't plan to maintain it. That being said, if you have some helpful or interesting thoughts, please feel free to open an issue and share your thoughts.
 
