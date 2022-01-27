@@ -37,7 +37,7 @@ enum Result { NO_RESULT = 0, BLUE_GATE_TAKEN, BLUE_MASTER_TAKEN, RED_GATE_TAKEN,
 struct State{
 /*
  Each State is represented by an array of 9 bitboards
- and the current player, i.e., the player to go next.
+ and the current player, i.e., the player whose turn it is.
    
  The meaning of each bitboard in the array is as follows:
    b[0] - RED master
@@ -65,7 +65,10 @@ inline State new_game(std::default_random_engine& rng){
   
   std::array<std::bitset<25>, 9> s = {RED_GATE, BLUE_GATE, RED_PAWN_START, BLUE_PAWN_START, DECK[deck_index[0]], DECK[deck_index[1]], DECK[deck_index[2]], DECK[deck_index[3]], DECK[deck_index[4]]};
   
-  return State{RED, s};
+  // choose the player to go first (in the official game each card has a colour and it is the colour of the side card that determines this choice)
+  std::uniform_int_distribution<int> uni(0, 1);
+  
+  return State{Player(uni(rng)), s};
 }
 
 inline State new_game(const int& seed){
