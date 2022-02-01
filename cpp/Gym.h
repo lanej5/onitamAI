@@ -3,8 +3,6 @@
 //
 //  Created by Jeremy Lane
 //
-//  Todo: record data
-//        impose resource limits
 
 #ifndef Gym_h
 #define Gym_h
