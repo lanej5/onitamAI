@@ -14,7 +14,7 @@
 #include "Action.h"
 #include "State.h"
 
-class UCTNode {//}: public std::enable_shared_from_this<UCTNode> {
+class UCTNode {
 public:
   UCTNode(State);
   int expand(std::default_random_engine& rng);

@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <stack>
+#include <string>
 
 #include "Agent.h"
 #include "UCTNode.h"
@@ -18,13 +19,14 @@
 const int TREE_POLICY_MAX_DEPTH = 100;
 const int DEFAULT_POLICY_MAX_DEPTH = 100;
 const int UCTSEARCH_BUDGET = 150;
-const float CP = 0.7071;
 
 class UCTAgent : public Agent {
 public:
   UCTAgent(std::default_random_engine& r) : rng(r){};
+  UCTAgent(std::default_random_engine& r, float c) : rng(r), cp(c){};
   void new_game(const State&);
   Action get_action(const State&, const Action&);
+  std::string get_description();
   ~UCTAgent(){};
   void print_stats();
   
@@ -39,6 +41,7 @@ private:
   std::shared_ptr<UCTNode> root;
   int node_count = 0;
   float branching_factor = 0;
+  float cp = 0.7071;
 };
 
 void UCTAgent::new_game(const State& s){
@@ -85,7 +88,7 @@ std::stack<std::shared_ptr<UCTNode>> UCTAgent::uct_tree_policy(){
   while(path.top()->r == 0 && d < TREE_POLICY_MAX_DEPTH){
     if(path.top()->fully_expanded()){
       
-      int k = path.top()->best_child(rng, CP);
+      int k = path.top()->best_child(rng, cp);
       path.push(path.top()->children[k]);
     } else {
       // expand
@@ -164,6 +167,11 @@ Action UCTAgent::get_action(const State& curr_s, const Action& prev_a){
   update_root(a);
   
   return a;
+}
+
+std::string UCTAgent::get_description(){
+  std::string description = "{\n    \"name\": \"UCTAgent\",\n    \"param\": [\n      \"cp\": " + std::to_string(cp) + "\n    ]\n  }";
+  return description;
 }
 
 void UCTAgent::print_stats(){

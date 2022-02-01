@@ -19,6 +19,6 @@ int main(){
   UCTAgent p2(rng);
   Gym g(p1, p2, rng);
   
-  g.pit(5);
+  g.pit(10);
   
 }

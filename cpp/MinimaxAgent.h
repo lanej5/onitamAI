@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <cmath>
 #include <random>
+#include <string>
+
 #include "Agent.h"
 
 constexpr float FLOAT_INF = std::numeric_limits<float>::max();
@@ -19,6 +21,7 @@ public:
   MinimaxAgent(std::default_random_engine& r, const int d): rng(r), max_depth(d){};
   void new_game(const State&){};
   Action get_action(const State&, const Action&);
+  std::string get_description();
   
 private:
   float heuristic_value(const State&);
@@ -105,6 +108,11 @@ Action MinimaxAgent::get_action(const State& s, const Action& prev_action){
     }
   }
   return best_action;
+}
+
+std::string MinimaxAgent::get_description(){
+  std::string description = "{\n    \"name\": \"MinimaxAgent\",\n    \"param\": [\n      \"max_depth\": " + std::to_string(max_depth) + "\n    ]\n  }";
+  return description;
 }
 
 #endif /* MinimaxAgent_h */

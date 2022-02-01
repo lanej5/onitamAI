@@ -12,22 +12,25 @@
 #include <map>
 #include "Agent.h"
 #include "Utils.h"
+#include "Logger.h"
 
 class Gym {
 public:
-  Gym(Agent& red, Agent& blue, std::default_random_engine& r) : red_agent {red}, blue_agent {blue}, rng {r} {};
-  Result play_game();
+  Gym(Agent& red, Agent& blue, std::default_random_engine& r, Logger& l) : red_agent {red}, blue_agent {blue}, rng {r}, logger {l} {};
+  void play_game();
   void pit(int);
   
 private:
   Agent& red_agent;
   Agent& blue_agent;
   std::default_random_engine& rng;
+  Logger& logger;
 };
 
-Result Gym::play_game(){
+void Gym::play_game(){
 
-  State s = new_game(rng);
+  State start_state = new_game(rng);
+  State s = start_state;
   
   red_agent.new_game(s);
   blue_agent.new_game(s);
@@ -35,8 +38,9 @@ Result Gym::play_game(){
   Action a{NONE, 0, 0};
   
   int t = 0;
+  Result result = get_result(s);
   
-  while (get_result(s) == NO_RESULT && t < 200){
+  while (result == NO_RESULT && t < 200){
     if(s.player == RED){
       a = red_agent.get_action(s, a);
     } else {
@@ -44,31 +48,18 @@ Result Gym::play_game(){
     }
     s = next_state(s, a);
     t++;
+    result = get_result(s);
   }
-
-  // make optional
-  //std::cout << "Game ended on turn " << t << std::endl;
-  //display_board(s);
   
-  return get_result(s);
+  logger.log(start_state, s, result, t);
+  
+  return;
 }
 
 void Gym::pit(int num_games){
-  std::map<Result, int> results{{BLUE_GATE_TAKEN, 0}, {RED_GATE_TAKEN, 0}, {BLUE_MASTER_TAKEN, 0}, {RED_MASTER_TAKEN, 0}, {NO_RESULT, 0}};
-  
   for(int i = 0; i < num_games; i++){
-    results[play_game()]++;
+    play_game();
   }
-  
-  std::cout << "Total red wins: " << results[BLUE_GATE_TAKEN] + results[BLUE_MASTER_TAKEN] << std::endl;
-  std::cout << "  Number of master captures: " << results[BLUE_MASTER_TAKEN] << std::endl;
-  std::cout << "  Number of gate captures: " << results[BLUE_GATE_TAKEN] << std::endl;
-  std::cout << "Total blue wins: " << results[RED_GATE_TAKEN] + results[RED_MASTER_TAKEN] << std::endl;
-  std::cout << "  Number of master captures: " << results[RED_MASTER_TAKEN] << std::endl;
-  std::cout << "  Number of gate captures: " << results[RED_GATE_TAKEN] << std::endl;
-  std::cout << "Total gate captures: " << results[RED_GATE_TAKEN] + results[BLUE_GATE_TAKEN] << std::endl;
-  std::cout << "Total master captures: " << results[RED_MASTER_TAKEN] + results[BLUE_MASTER_TAKEN] << std::endl;
 }
-
 
 #endif /* Gym_h */

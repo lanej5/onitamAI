@@ -1,7 +1,7 @@
 //
 //  Player.h
 //
-//  Created by Jeremy Lane.
+//  Created by Jeremy Lane
 //
 
 #ifndef Player_h
