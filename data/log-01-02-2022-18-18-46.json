@@ -1,0 +1,10 @@
+{
+  "red": {
+    "name": "RandomAgent",
+    "param": []
+  },
+  "blue": {
+    "name": "RandomAgent",
+    "param": []
+  }
+}

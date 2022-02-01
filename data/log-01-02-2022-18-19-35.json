@@ -1,0 +1,12 @@
+{
+  "red": {
+    "name": "RandomAgent",
+    "param": []
+  },
+  "blue": {
+    "name": "MinimaxAgent",
+    "param": [
+      "max_depth": 5
+    ]
+  }
+}
