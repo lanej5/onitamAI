@@ -5,6 +5,6 @@
   },
   "blue": {
     "name": "RandomAgent",
-    "param": []
+    "param": {}
   }
 }

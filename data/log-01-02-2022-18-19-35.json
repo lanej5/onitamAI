@@ -5,8 +5,8 @@
   },
   "blue": {
     "name": "MinimaxAgent",
-    "param": [
+    "param": {
       "max_depth": 5
-    ]
+    }
   }
 }
