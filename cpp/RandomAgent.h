@@ -29,7 +29,7 @@ Action RandomAgent::get_action(const State& s, const Action& a){
 }
 
 std::string RandomAgent::get_description(){
-  std::string description ="{\n    \"name\": \"RandomAgent\",\n    \"param\": []\n  }";
+  std::string description ="{\n    \"name\": \"RandomAgent\",\n    \"param\": {}\n  }";
   return description;
 }
 

@@ -111,7 +111,7 @@ Action MinimaxAgent::get_action(const State& s, const Action& prev_action){
 }
 
 std::string MinimaxAgent::get_description(){
-  std::string description = "{\n    \"name\": \"MinimaxAgent\",\n    \"param\": [\n      \"max_depth\": " + std::to_string(max_depth) + "\n    ]\n  }";
+  std::string description = "{\n    \"name\": \"MinimaxAgent\",\n    \"param\": {\n      \"max_depth\": " + std::to_string(max_depth) + "\n    }\n  }";
   return description;
 }
 

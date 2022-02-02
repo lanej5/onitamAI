@@ -170,7 +170,7 @@ Action UCTAgent::get_action(const State& curr_s, const Action& prev_a){
 }
 
 std::string UCTAgent::get_description(){
-  std::string description = "{\n    \"name\": \"UCTAgent\",\n    \"param\": [\n      \"cp\": " + std::to_string(cp) + "\n    ]\n  }";
+  std::string description = "{\n    \"name\": \"UCTAgent\",\n    \"param\": {\n      \"cp\": " + std::to_string(cp) + "\n    }\n  }";
   return description;
 }
 
