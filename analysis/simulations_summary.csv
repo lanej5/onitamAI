@@ -1,0 +1,5 @@
+,Red Agent,Red Param,Blue Agent,Blue Param,Number of Games,Number of Red Wins,Winner,p-value,filename
+0,RandomAgent,{},MinimaxAgent,{'max_depth': 5},10,0,Blue,0.001953125,log-01-02-2022-18-19-35
+1,UCTAgent,{'cp': 1.5},UCTAgent,{'cp': 0.707},100,41,Draw,0.08862608011406767,log-03-02-2022-09-45-43
+2,RandomAgent,{},UCTAgent,{'cp': 0.707},100,11,Blue,2.540853335492305e-16,log-03-02-2022-09-41-25
+3,RandomAgent,{},RandomAgent,{},1000,491,Draw,0.5908841078023002,log-01-02-2022-18-18-46

@@ -18,7 +18,7 @@
 
 const int TREE_POLICY_MAX_DEPTH = 100;
 const int DEFAULT_POLICY_MAX_DEPTH = 100;
-const int UCTSEARCH_BUDGET = 150;
+const int UCTSEARCH_BUDGET = 500;
 
 class UCTAgent : public Agent {
 public:
@@ -87,9 +87,7 @@ std::stack<std::shared_ptr<UCTNode>> UCTAgent::uct_tree_policy(){
   
   while(path.top()->r == 0 && d < TREE_POLICY_MAX_DEPTH){
     if(path.top()->fully_expanded()){
-      
-      int k = path.top()->best_child(rng, cp);
-      path.push(path.top()->children[k]);
+      path.push(path.top()->children[path.top()->best_child(rng, cp)]);
     } else {
       // expand
       path.push(path.top()->children[path.top()->expand(rng)]);
@@ -108,6 +106,8 @@ inline float UCTAgent::default_policy(State s){
   // DEFAULT POLICY
   //
   // Plays out a random simulation and returns reward for s.player
+  //
+  // Returns the reward for current player at s
   
   int turn = 0;
   float reward = get_reward(s);
@@ -145,13 +145,17 @@ Action UCTAgent::UCTSearch(){
   // Upper Confidence bound for Trees (UCT) search algorithm
   
   // parallelize this
-  // turn loop into while condition based on time/memory constraint
+  // add time/memory constraint
   
   for(int i = 0; i < UCTSEARCH_BUDGET; i++)
   {
     auto path = uct_tree_policy();
-    float delta = default_policy(path.top()->state);
-    backup(path, delta);
+    auto delta = default_policy(path.top()->state);
+    if(path.top()->state.player == root->state.player){
+      backup(path, delta);
+    } else {
+      backup(path, -delta);
+    }
   }
 
   return root->actions[root->best_child(rng, 0)];

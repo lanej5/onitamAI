@@ -1,0 +1,12 @@
+{
+  "red": {
+    "name": "RandomAgent",
+    "param": {}
+  },
+  "blue": {
+    "name": "UCTAgent",
+    "param": {
+      "cp": 0.707000
+    }
+  }
+}

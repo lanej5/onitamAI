@@ -1,0 +1,14 @@
+{
+  "red": {
+    "name": "UCTAgent",
+    "param": {
+      "cp": 1.500000
+    }
+  },
+  "blue": {
+    "name": "UCTAgent",
+    "param": {
+      "cp": 0.707000
+    }
+  }
+}

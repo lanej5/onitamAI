@@ -12,7 +12,6 @@
 #include "State.h"
 #include "Action.h"
 
-
 class Agent {
 public:
   virtual void new_game(const State&) = 0;

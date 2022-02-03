@@ -1,7 +1,7 @@
 //
 //  State.h
 //
-//  Created by Jeremy Lane.
+//  Created by Jeremy Lane
 //
 //  Establishes the logic and representation for Onitama states and actions.
 
@@ -9,6 +9,8 @@
 #define State_h
 
 #include <random>
+#include <bitset>
+#include <array>
 
 #include "OnitamaDeck.h"
 #include "Player.h"
@@ -27,10 +29,10 @@
 
 */
 
-const std::bitset<25> RED_GATE = 0b0000000000000000000000100; // starting position of red master
-const std::bitset<25> BLUE_GATE = 0b0010000000000000000000000;
-const std::bitset<25> RED_PAWN_START = 0b0000000000000000000011011;
-const std::bitset<25> BLUE_PAWN_START = 0b1101100000000000000000000;
+constexpr std::bitset<25> RED_GATE = 0b0000000000000000000000100; // starting position of red master
+constexpr std::bitset<25> BLUE_GATE = 0b0010000000000000000000000;
+constexpr std::bitset<25> RED_PAWN_START = 0b0000000000000000000011011;
+constexpr std::bitset<25> BLUE_PAWN_START = 0b1101100000000000000000000;
 
 enum Result { NO_RESULT = 0, BLUE_GATE_TAKEN, BLUE_MASTER_TAKEN, RED_GATE_TAKEN, RED_MASTER_TAKEN };
 
