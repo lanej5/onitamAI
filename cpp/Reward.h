@@ -7,19 +7,19 @@
 #ifndef Reward_h
 #define Reward_h
 
-#include "State.h"
+#include "Onitama.h"
 
-inline float get_reward(const State& s, const float gate_reward = 1, const float master_reward = 0.5){
-  switch(get_result(s)){
-    case BLUE_GATE_TAKEN:
-      return gate_reward * (1 - 2 * s.player);
-    case RED_GATE_TAKEN:
-      return gate_reward * (2 * s.player - 1);
-    case BLUE_MASTER_TAKEN:
-      return master_reward * (1 - 2 * s.player);
-    case RED_MASTER_TAKEN:
-      return master_reward * (2 * s.player - 1);
-    case NO_RESULT:
+inline float get_reward(const Onitama::State& s, const float gate_reward = 1, const float master_reward = 0.5){
+  switch(s.get_result()){
+    case Onitama::BLUE_GATE_TAKEN:
+      return gate_reward * (1 - 2 * s.get_player());
+    case Onitama::RED_GATE_TAKEN:
+      return gate_reward * (2 * s.get_player() - 1);
+    case Onitama::BLUE_MASTER_TAKEN:
+      return master_reward * (1 - 2 * s.get_player());
+    case Onitama::RED_MASTER_TAKEN:
+      return master_reward * (2 * s.get_player() - 1);
+    case Onitama::NO_RESULT:
       return 0;
   }
 }

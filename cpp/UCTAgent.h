@@ -24,18 +24,18 @@ class UCTAgent : public Agent {
 public:
   UCTAgent(std::default_random_engine& r) : rng(r){};
   UCTAgent(std::default_random_engine& r, float c) : rng(r), cp(c){};
-  void new_game(const State&);
-  Action get_action(const State&, const Action&);
+  void new_game(const Onitama::State&);
+  Onitama::Action get_action(const Onitama::State&, const Onitama::Action&);
   std::string get_description();
   ~UCTAgent(){};
   void print_stats();
   
 private:
-  void update_root(const Action&);
+  void update_root(const Onitama::Action&);
   std::stack<std::shared_ptr<UCTNode>> uct_tree_policy();
-  float default_policy(State);
+  float default_policy(Onitama::State);
   void backup(std::stack<std::shared_ptr<UCTNode>>, float);
-  Action UCTSearch();
+  Onitama::Action UCTSearch();
   
   std::default_random_engine& rng;
   std::shared_ptr<UCTNode> root;
@@ -44,7 +44,7 @@ private:
   float cp = 0.7071;
 };
 
-void UCTAgent::new_game(const State& s){
+void UCTAgent::new_game(const Onitama::State& s){
   // (re-)initialize the tree
   // Must be called when a new game is started
   root = std::make_shared<UCTNode>(s);
@@ -52,9 +52,9 @@ void UCTAgent::new_game(const State& s){
   branching_factor = 0;
 }
 
-void UCTAgent::update_root(const Action& a){
+void UCTAgent::update_root(const Onitama::Action& a){
   // use a to update root
-  if(a.card == NONE){
+  if(a.action_type == Onitama::NONE){
     return;
   }
   // find edge
@@ -70,7 +70,7 @@ void UCTAgent::update_root(const Action& a){
   if(root->children[k]){  // child is already expanded
     root = std::move(root->children[k]);
   } else {                // start from scratch
-    root = std::make_shared<UCTNode>(next_state(root->state, a));
+    root = std::make_shared<UCTNode>(root->state.next_state(a));
   }
 }
 
@@ -102,7 +102,7 @@ std::stack<std::shared_ptr<UCTNode>> UCTAgent::uct_tree_policy(){
   return path; // reached terminal state
 }
 
-inline float UCTAgent::default_policy(State s){
+inline float UCTAgent::default_policy(Onitama::State s){
   // DEFAULT POLICY
   //
   // Plays out a random simulation and returns reward for s.player
@@ -111,16 +111,16 @@ inline float UCTAgent::default_policy(State s){
   
   int turn = 0;
   float reward = get_reward(s);
-  State n = s;
+  Onitama::State n = s;
   
   while(reward == 0 && turn < DEFAULT_POLICY_MAX_DEPTH){
-    std::vector<Action> actions = get_valid_actions(n);
+    std::vector<Onitama::Action> actions = n.get_valid_actions();
     std::uniform_int_distribution<int> unif(0, int(actions.size()) - 1);
-    n = next_state(n, actions[unif(rng)]);
+    n = n.next_state(actions[unif(rng)]);
     reward = get_reward(n);
     turn++;
   }
-  if(s.player == n.player){
+  if(s.get_player() == n.get_player()){
     return reward;
   } else {
     return -reward;
@@ -141,7 +141,7 @@ void UCTAgent::backup(std::stack<std::shared_ptr<UCTNode>> path, float delta){
   }
 }
 
-Action UCTAgent::UCTSearch(){
+Onitama::Action UCTAgent::UCTSearch(){
   // Upper Confidence bound for Trees (UCT) search algorithm
   
   // parallelize this
@@ -151,7 +151,7 @@ Action UCTAgent::UCTSearch(){
   {
     auto path = uct_tree_policy();
     auto delta = default_policy(path.top()->state);
-    if(path.top()->state.player == root->state.player){
+    if(path.top()->state.get_player() == root->state.get_player()){
       backup(path, delta);
     } else {
       backup(path, -delta);
@@ -161,13 +161,13 @@ Action UCTAgent::UCTSearch(){
   return root->actions[root->best_child(rng, 0)];
 }
 
-Action UCTAgent::get_action(const State& curr_s, const Action& prev_a){
+Onitama::Action UCTAgent::get_action(const Onitama::State& curr_s, const Onitama::Action& prev_a){
   // Interface for UCTAgent
   // Computes and returns the best action according to UCT MCTS
   // Side-effects: updates root, calls UCTSearch (which has side-effects)
 
   update_root(prev_a);
-  Action a = UCTSearch();
+  Onitama::Action a = UCTSearch();
   update_root(a);
   
   return a;

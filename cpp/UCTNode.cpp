@@ -4,21 +4,20 @@
 //  Created by Jeremy Lane
 //
 
+#include <cmath>
+
 #include "UCTNode.h"
 #include "Reward.h"
-
-#include <cmath>
 
 const float FLOAT_N_INF = -std::numeric_limits<float>::max();
 const int INT_N_INF = std::numeric_limits<int>::min();
 
 std::uniform_real_distribution<float> EPS(-1e-6, 1e-6);
 
-UCTNode::UCTNode(State s){
-  state = s;
+UCTNode::UCTNode(Onitama::State s) : state{s} {
   r = get_reward(state);
   if(r == 0){
-    actions = get_valid_actions(state);
+    actions = state.get_valid_actions();
     children = std::vector<std::shared_ptr<UCTNode>>(actions.size());
   }
 }
@@ -65,7 +64,7 @@ int UCTNode::expand(std::default_random_engine& rng){
 void UCTNode::expand(int k){
   // Creates a new node as children[k]
   if(!children[k]){
-    children[k] = std::make_shared<UCTNode>(next_state(state, actions[k]));
+    children[k] = std::make_shared<UCTNode>(state.next_state(actions[k]));
   }
 }
 

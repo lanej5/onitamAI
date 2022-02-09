@@ -10,20 +10,22 @@
 
 #include <random>
 #include <string>
+
+#include "Onitama.h"
 #include "Agent.h"
 
 class RandomAgent : public Agent {
 public:
   RandomAgent(std::default_random_engine& r) : rng{r}{};
-  Action get_action(const State&, const Action&);
+  Onitama::Action get_action(const Onitama::State&, const Onitama::Action&);
   std::string get_description();
-  void new_game(const State&){};
+  void new_game(const Onitama::State&){};
 private:
   std::default_random_engine& rng;
 };
 
-Action RandomAgent::get_action(const State& s, const Action& a){
-  std::vector<Action> actions = get_valid_actions(s);
+Onitama::Action RandomAgent::get_action(const Onitama::State& s, const Onitama::Action& a){
+  std::vector<Onitama::Action> actions = s.get_valid_actions();
   std::uniform_int_distribution<int> unif(0, int(actions.size()) - 1);
   return actions[unif(rng)];
 }
