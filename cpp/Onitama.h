@@ -18,12 +18,9 @@
 
 namespace Onitama
 {
-  // each card also has a color
-  // the first 8 cards are blue
-  // the remaining 8 cards are red
   // when the game begins
   // the color of the side card
-  // determines who plays first
+  // tells us who goes first
   constexpr std::array<std::bitset<25>, 16> Deck {
     // blue cards
     0b0000001010000000101000000, // monkey
