@@ -1,10 +1,8 @@
 # Onitama
 
-Onitama is a chess variant. One of its interesting features is that legal moves are given on cards. Each player can only make moves based on the cards in their hand and cards are exchanged after each turn. This adds an extra challenge when looking several turns ahead because the moves that will be available will depend on which cards are played. [More details](https://www.chessvariants.com/rules/onitama).
+Onitama is a chess variant. One of its interesting features is that legal moves change from turn to turn. Moves are given on cards. Each player can only make moves based on the cards in their hand and cards are exchanged after each turn. This adds an extra challenge for human players when looking several turns ahead because the moves that will be available will depend on which cards are played (by both players). [More details](https://www.chessvariants.com/rules/onitama).
 
-I was given Onitama for christmas and thought that implementing some AI to play it would be fun.  I chose C++ because I want to focus on making Monte Carlo Tree Search (MCTS) agents [1] that are fast and memory efficient.
-
-My original idea was to implement an Alpha Zero AI for Onitama. However, this is probably overkill because Onitama's branching factor is relatively small. In random simulations Onitama's branching factor was consistently <20 from early to late game. In contrast, the branching factor of Go is about 250 and the branching factor of chess is about 35 [[ref](https://en.wikipedia.org/wiki/Branching_factor)].
+I was given Onitama for christmas and thought that implementing some AI to play it would be fun.  I chose C++ because I wanted to brush up on my C++ skills. In the process I learned some things about modern C++ that definitely weren't in my undergrad CS classes (e.g., smart pointers!).
 
 An agent using the upper confidence for trees (UCT) algorithm [2] is implemented in UCTAgent.h. A gym that can be used to pit different AI agents is implemented in Gym.h.
 
@@ -17,7 +15,6 @@ For whenever I get around to it, in no particular order:
 - Implement a few other MCTS algorithms and use the gym to compare them and tune their hyperparameters
 - Implement time/memory resource constraints
 - Implement an Alpha Zero variant
-- Dockerize everything
 - Parallelize the MCTS algorithm?
 
 # References
